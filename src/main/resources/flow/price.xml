@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow>
+    <chain name="mainChain">
+        <!-- 参数初始化，查商品 -->
+        <pre value="slotInitCmp"/>
+        <then value="canBuyCheck(priceQuery, processEnd)"/>
+    </chain>
+
+    <!-- 是否可购买 -->
+    <chain name="canBuyCheck">
+        <!-- 店铺状态校验、配送区域校验、经营范围校验、商品状态校验、控销校验 -->
+        <when value="shopStatusCheck,deliveryAreaCheck,saleScopeCheck,productStatusCheck,saleControlCheck"/>
+    </chain>
+
+    <!-- 价格查询 -->
+    <chain name="priceQuery">
+        <!-- 公开价、条件价、客户组价、单客户价 -->
+        <when value="channelPriceCmp,conditionPriceCmp,custGroupPriceCmp,custPriceCmp"/>
+        <!-- 基础价格 -->
+        <then value="basePriceCmp"/>
+        <!-- 环线加成 -->
+        <then value="unifyPriceCmp"/>
+        <!-- 标签加价 -->
+        <then value="labelPriceCmp"/>
+        <!-- JBP操作费 -->AtomicInteger
+        <then value="jbpModifyPriceCmp"/>
+        <!-- 会员价 -->
+        <then value="vipPriceCmp"/>
+        <!-- 售价 -->
+        <then value="showPriceCmp"/>
+    </chain>
+
+    <!-- 结束 -->
+    <chain name="processEnd">
+    </chain>
+</flow>
