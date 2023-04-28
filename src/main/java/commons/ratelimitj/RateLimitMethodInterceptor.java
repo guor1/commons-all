@@ -1,5 +1,6 @@
 package commons.ratelimitj;
 
+import cn.dev33.satoken.stp.StpUtil;
 import commons.exception.BizException;
 import commons.utils.RateLimiters;
 import es.moki.ratelimitj.core.limiter.request.RequestRateLimiter;
@@ -22,9 +23,10 @@ public class RateLimitMethodInterceptor implements MethodInterceptor {
         Method method = invocation.getMethod();
         RateLimit rateLimit = AnnotationUtils.findAnnotation(method, RateLimit.class);
         if (rateLimit != null) {
+            String loginId = StpUtil.getLoginIdAsString();
             RequestRateLimiter requestRateLimiter = limiterMap.putIfAbsent(rateLimit.path(), RateLimiters.createRateLimiter(rateLimit.seconds(), rateLimit.limit()));
             assert requestRateLimiter != null;
-            if (requestRateLimiter.overLimitWhenIncremented(rateLimit.path())) {
+            if (requestRateLimiter.overLimitWhenIncremented(rateLimit.path() + loginId)) {
                 throw new BizException("访问太快");
             }
         }
