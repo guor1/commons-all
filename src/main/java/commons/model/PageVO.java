@@ -20,11 +20,11 @@ public class PageVO implements Serializable {
     /**
      * 当前页数
      */
-    private int pageNo;
+    private int pageNo = 1;
     /**
      * 每页记录数
      */
-    private int pageSize;
+    private int pageSize = 10;
 
     /**
      * 偏移

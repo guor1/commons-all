@@ -20,9 +20,9 @@ public class PageDTO<T> implements Serializable {
     /**
      * 列表数据
      */
-    private List<T> list;
+    private List<T> content;
     /**
      * 总记录数
      */
-    private int totalCount;
+    private int total;
 }
