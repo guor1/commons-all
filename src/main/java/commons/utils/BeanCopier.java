@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 对象复制，目前有三种实现，手工复制（或MapStruct） > cglib > 反射
+ * 对象复制，目前有三种实现，手工复制（或MapStruct）、cglib、反射
  *
  * @author guorui1
  */

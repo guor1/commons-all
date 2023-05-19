@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * 翻页信息对象，默认第1页10条数据
  *
@@ -14,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PageVO {
+public class PageVO implements Serializable {
     /**
      * 当前页数
      */
@@ -29,5 +31,9 @@ public class PageVO {
      */
     public int getOffset() {
         return pageNo <= 0 ? 0 : (pageNo - 1) * pageSize;
+    }
+
+    public PageVO page0() {
+        return PageVO.builder().pageNo(1).pageSize(10).build();
     }
 }
